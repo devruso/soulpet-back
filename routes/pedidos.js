@@ -88,7 +88,21 @@ router.post("/pedidos", async (req, res) => {
 });
 
 
+router.put("/pedidos/:id", async (req, res) =>{
+    const {id} = req.params;
+    const {codigo,quantidade} = req.body;
+    try{
+        const pedido = await Pedido.findByPk(id);
+        if(pedido){
+            await pedido.update({codigo, quantidade});
+            res.json({message: "Pedido editado"});
+        }
+    }catch(err){
+        console.log(err);
+        res.status(500).json({messae: "Um erro aconteceu."})
+    }
 
+})
 
 
 //Remove o pedido com o respectivo id.
