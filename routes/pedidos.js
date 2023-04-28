@@ -88,9 +88,6 @@ router.post("/pedidos", async (req, res) => {
 });
 
 
-
-
-
 //Remove o pedido com o respectivo id.
 
 router.delete("/pedidos/:id", async (req, res) => {
