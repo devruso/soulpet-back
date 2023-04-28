@@ -47,5 +47,29 @@ router.post("/servico", async (req, res) => {
     }
   });
   
+// Rota para Atualizar Registro:
+router.put("/servico/:id", async (req, res) => {
+  const { nome, preco } = req.body;
+  const { id } = req.params;
+
+  try {
+    const servico = await Servico.findOne({ where: { id } });
+    if (servico) {
+      await servico.update({ nome, preco });
+      res.status(200).json({ message: "Serviço atualizado com sucesso." });
+    } else {
+      res
+        .status(400)
+        .json({ message: "Esse serviço não possui informações armazenadas" });
+    }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .json({
+        message: "Não foi possível atualizar as informações do serviço",
+      });
+  }
+});
 
   module.exports= router;
