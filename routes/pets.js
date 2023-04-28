@@ -22,6 +22,17 @@ router.get("/pets/:id", async (req, res) => {
   }
 });
 
+// Listar pets de um clinete
+router.get("/clientes/:clienteId/pets", async (req, res) => {
+  const { clienteId } = req.params;
+  const listaPetsCliente = await Pet.findAll({where: {clienteId: clienteId}});
+  if (listaPetsCliente) {
+    res.json(listaPetsCliente);
+  } else {
+    res.status(404).json({ message: "Pet relacionado ao cliente não encontrado." });
+   }
+});
+
 router.post("/pets", async (req, res) => {
   const { nome, tipo, porte, dataNasc, clienteId } = req.body;
 
