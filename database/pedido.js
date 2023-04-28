@@ -9,16 +9,16 @@ const Pedido = connection.define("pedido",{
         unique:true
     },
     quantidade:{
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull:false,
     }
-})
+});
 
 const Cliente = require("./cliente");
 const Produto = require("./produto");
 
-Cliente.hasMany(Pedido, {onDelete: "CASCADE"});
-Produto.hasMany(Pedido); 
+Cliente.hasMany(Pedido, {onDelete:"CASCADE"});
+Produto.hasMany(Pedido, {onDelete:"CASCADE"}); 
 
 
 module.exports = Pedido;
