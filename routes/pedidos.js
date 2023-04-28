@@ -88,5 +88,57 @@ router.post("/pedidos", async (req, res) => {
 });
 
 
+
+
+
+//Remove o pedido com o respectivo id.
+
+router.delete("/pedidos/:id", async (req, res) => {
+    try {
+        const pedido = await Pedido.findByPk(req.params.id);
+        if(!pedido){
+            return res.status(404).json({ message: "Produto não encontrado" });
+        }
+        await pedido.destroy();
+        res.json({ message: "Pedido removido." })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Um erro aconteceu." })
+    }
+});
+
+//Remove todos os pedidos pelo respectivo id do cliente.
+
+router.delete("/pedidos/clientes/:id", async (req, res) => {
+    try {
+        const pedido = await Pedido.findAll({ where: { clientesId: req.params.id } });
+        if(pedido.length === 0) {
+            return res.status(404).json({ message: "Pedidos não encontrados." });
+        }
+        await pedido.destroy({ where: { clientesId: req.params.id } });
+
+        res.json({ message: "Pedidos removidos com sucesso." })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Um erro aconteceu." })
+    }
+});
+
+//Remove todos os pedidos pelo respectivo id do produto.
+router.delete("/pedidos/produtos/:id", async (req, res) => {
+    try {
+        const pedido = await Pedido.findAll({ where: { produtosId: req.params.id } });
+        if(pedido.length === 0) {
+            return res.status(404).json({ message: "Pedidos não encontrados." });
+        }
+        await pedido.destroy({ where: { produtosId: req.params.id } });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Um erro aconteceu." });
+    }
+});
+
+
+
 module.exports = router;
 
