@@ -28,6 +28,29 @@ router.get("/clientes/:id", async (req, res) => {
   }
 });
 
+// Mostra o endereço que pertence ao cliente com a rota HTTP // assincrona com banco de dados
+router.get("/clientes/:clienteId/endereco", async (req, res) => { 
+  //const, extraindo o valor do parametro da solicitação HTTP.
+  const { clienteId } = req.params;
+  //bloco try-catch para consultar banco de dados // e responder em formato JSON.
+  try {
+    const cliente = await Cliente.findOne({
+      where: { id: clienteId },
+      //associação de tabelas, solicitando ao sequelize para retornar o endereço 
+      include: [Endereco],
+    });
+    // verificando se o resultado e valido.
+    if (cliente && cliente.endereco) {
+      res.json(cliente.endereco);
+    } else {
+      res.status(404).json({ message: "Endereço relacionado ao cliente não encontrado." });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Um erro aconteceu." });
+  }
+});
+
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
