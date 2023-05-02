@@ -10,4 +10,11 @@ const Agendamento = connection.define("agendamento", {
 },
 });
 
+
+const Servico = require('./servico');
+const Pet = require('./pet');
+
+Pet.hasMany(Agendamento);
+Servico.hasMany(Agendamento);
+
 module.exports = Agendamento;
