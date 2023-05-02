@@ -88,18 +88,26 @@ router.post("/pedidos", async (req, res) => {
 });
 
 
+
 router.put("/pedidos/:id", async (req, res) =>{
     const {id} = req.params;
     const {codigo,quantidade} = req.body;
     try{
-        const pedido = await Pedido.findByPk(id);
-        if(pedido){
-            await pedido.update({codigo, quantidade});
-            res.json({message: "Pedido editado"});
+        if(codigo && quantidade){
+            const pedido = await Pedido.findByPk(id);
+            if(pedido){
+                await pedido.update({codigo, quantidade});
+                res.json({message: "Pedido editado"});
+            }else{
+                res.status(400).json({message:"Informações inválidas"});1
+            }
+        }else{
+            
         }
+        
     }catch(err){
         console.log(err);
-        res.status(500).json({messae: "Um erro aconteceu."})
+        res.status(500).json({message: "Um erro aconteceu."})
     }
 
 })
