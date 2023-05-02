@@ -62,16 +62,17 @@ router.get("/servicos", async (req, res) => {
   res.json(listaServicos);
 });
 
+// Rota para listar servico id
 router.get("/servico/:id", async (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params
 
-  const servico = await Servico.findByPk(id);
+  const servico = await Servico.findByPk(id)
   if (servico) {
-    res.json(servico);
+    res.json(servico)
   } else {
     res.status(404).json({ message: "Pet não encontrado." });
-
-  });
+  }
+})
   
 // Rota para Atualizar Registro:
 router.put("/servico/:id", async (req, res) => {
