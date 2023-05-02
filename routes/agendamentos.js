@@ -3,6 +3,7 @@ const { Router } = require("express");
 
 const router = Router();
 
+
 // Rota GET listar agendamentos
 router.get("/agendamentos", async (req, res) => {
    
@@ -14,6 +15,7 @@ router.get("/agendamentos", async (req, res) => {
     }
     
   });
+
 
 router.post("/agendamentos", async (req,res) =>{
     const {data, petId, clienteId} = req.body;

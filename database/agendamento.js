@@ -1,6 +1,7 @@
 //Model de Agendamento 
 const { DataTypes } = require("sequelize");
-const { connection } = require("../database/database");
+const { connection } = require("./database");
+
 
 const Agendamento = connection.define("agendamento", {
   data: { 
