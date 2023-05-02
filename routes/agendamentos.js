@@ -31,6 +31,28 @@ router.post("/agendamentos", async (req,res) =>{
 
 })
 
+// Rota PUT para atualizar um agendamento
+router.put("/agendamentos/atualizar/:id", async (req, res) => {
+  const { id } = req.params; // id do agendamento
+  const { data } = req.body;
+
+  try {
+    // encontrando no baco de dados
+    const agendamento = await Agendamento.findByPk(id);
+
+    if (!agendamento) { // se nao for encontrado retorna "não encontrado"
+      return res.status(404).json({ message: "Agendamento não encontrado." });
+    }
+    //atualidando o agendamento
+    const resultado = await agendamento.update({ data });
+
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Um erro aconteceu." });
+  }
+});
+
 router.delete("/agendamento/:id", async (req, res) => {
     const { id } = req.params;
     const agendamento = await Agendamento.findByPk(req.params.id);
