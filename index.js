@@ -14,7 +14,10 @@ app.use(cors({ origin: "http://localhost:3000" }));
 
 // Configuração do Banco de Dados
 const { connection, authenticate } = require("./database/database");
-authenticate(connection); // efetivar a conexão
+// authenticate(connection); // efetivar a conexão
+// Inicio o banco de dados resetado
+const initiateDB = require("./database/initiateDB");
+initiateDB();
 
 // Definição de Rotas
 const rotasClientes = require("./routes/clientes");
@@ -34,10 +37,11 @@ app.use(rotasPedidos);
 app.use(rotasAgendamentos);
 app.use(rotaRelatorio);
 
+
+
 // Escuta de eventos (listen)
 app.listen(3001, () => {
   // Gerar as tabelas a partir do model
   // Force = apaga tudo e recria as tabelas
-  connection.sync();
   console.log("Servidor rodando em http://localhost:3001/");
 });
