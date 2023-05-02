@@ -1,6 +1,6 @@
 const Cliente = require("../database/cliente");
 const Endereco = require("../database/endereco");
-
+const Pet = require("../database/pet");
 const { Router } = require("express");
 
 // Criar o grupo de rotas (/clientes)
@@ -18,7 +18,7 @@ router.get("/clientes/:id", async (req, res) => {
   // SELECT * FROM clientes WHERE id = 1;
   const cliente = await Cliente.findOne({
     where: { id: req.params.id },
-    include: [Endereco], // trás junto os dados de endereço
+    include: [Endereco, Pet], // trás junto os dados de endereço
   });
 
   if (cliente) {
