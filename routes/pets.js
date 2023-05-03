@@ -7,9 +7,20 @@ const { Router } = require("express");
 const router = Router();
 
 router.get("/pets", async (req, res) => {
-  const listaPets = await Pet.findAll();
-  res.json(listaPets);
+  const page = parseInt(req.query.page) || 1; // Página atual (iniciando em 1)
+  const limit = parseInt(req.query.limit) || 10; // Número de itens a serem exibidos em cada página
+  const offset = (page - 1) * limit;
+
+  const { count, rows: listaPets } = await Pet.findAndCountAll({
+    limit,
+    offset,
+  });
+
+  const totalPages = Math.ceil(count / limit);
+
+  res.json({ listaPets, currentPage: page, totalPages });
 });
+
 
 router.get("/pets/:id", async (req, res) => {
   const { id } = req.params;
