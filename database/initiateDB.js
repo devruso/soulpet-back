@@ -3,8 +3,7 @@ dotenv.config();
 const { connection,authenticate } = require("./database");
 
 //  UUID a ser utilizado em pedido
-import { v4 as uuidv4 } from 'uuid';
-
+const { v4: uuidv4 } = require('uuid');
 
 const Cliente = require("./cliente");
 const Endereco = require("./endereco")
@@ -14,7 +13,7 @@ const Agendamento = require("./agendamento");
 const Servico = require("./servico");
 const Pedido = require("./pedido");
  
-async function createCliente(nome,email,telefone,endereco){
+async function createCliente(nome,email,telefone){
     const novocliente = await Cliente.create({
         nome,
         email,
