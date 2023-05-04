@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { connection } = require("./database");
 
 const Pedido = connection.define("pedido",{
-    // ID do produto
+    // UUID
     codigo: {
         type: DataTypes.STRING,
         allowNull:false,
@@ -12,6 +12,8 @@ const Pedido = connection.define("pedido",{
         type: DataTypes.INTEGER,
         allowNull:false,
     }
+    //  inserir o id do cliente que fez o pedido
+    // inserior o id do produto
 });
 
 const Cliente = require("./cliente");
