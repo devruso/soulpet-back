@@ -36,6 +36,8 @@ router.delete("/servicos/:id", async (req, res) => {
   }
 });
 
+
+// Deletar todos os serviços
 router.delete("/servicos/all", async (req, res) => {
   try {
     await Servico.destroy({ where: {} });
