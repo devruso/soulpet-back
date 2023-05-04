@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
 app.use(morgan("dev"));
+// conexão com mongoose é feita pelo index
 mongoose.connect(process.env.MONGODB_URL);
 app.use(log);
 
