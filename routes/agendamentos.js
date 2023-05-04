@@ -16,11 +16,11 @@ router.get("/agendamentos", async (req, res) => {
     
   });
 
-
+// Rota POST adicionar agendamentos
 router.post("/agendamentos", async (req,res) =>{
-    const {data, petId, clienteId} = req.body;
+    const {data, petId, clienteId, status, servicoId} = req.body;
     try{
-        const agendamento = await Agendamento.create({data, petId, clienteId});
+        const agendamento = await Agendamento.create({data, petId, clienteId, status, servicoId});
         if(agendamento){
             res.status(201).json({message:"Agendamento feito"});
         }
