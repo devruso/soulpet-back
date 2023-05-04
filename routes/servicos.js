@@ -4,7 +4,7 @@ const { Router } = require("express");
 const router = Router();
 
 // Rota para adicionar um novo servico:
-router.post("/servico", async (req, res) => {
+router.post("/servicos", async (req, res) => {
   const { nome, preco } = req.body;
 
   try {
@@ -19,7 +19,7 @@ router.post("/servico", async (req, res) => {
   }
 });
 
-router.delete("/servico/:id", async (req, res) => {
+router.delete("/servicos/:id", async (req, res) => {
   const { id } = req.params;
   const servico = await Servico.findByPk(req.params.id);
 
@@ -36,6 +36,8 @@ router.delete("/servico/:id", async (req, res) => {
   }
 });
 
+
+// Deletar todos os serviços
 router.delete("/servicos/all", async (req, res) => {
   try {
     await Servico.destroy({ where: {} });
@@ -63,7 +65,7 @@ router.get("/servicos", async (req, res) => {
 });
 
 // Rota para listar servico id
-router.get("/servico/:id", async (req, res) => {
+router.get("/servicos/:id", async (req, res) => {
   const {id} = req.params
 
   const servico = await Servico.findByPk(id)
@@ -75,7 +77,7 @@ router.get("/servico/:id", async (req, res) => {
 })
   
 // Rota para Atualizar Registro:
-router.put("/servico/:id", async (req, res) => {
+router.put("/servicos/:id", async (req, res) => {
   const { nome, preco } = req.body;
   const { id } = req.params;
 
