@@ -17,9 +17,6 @@ app.use(cors({ origin: "http://localhost:3000" }));
 
 
 // Configuração do Banco de Dados
-const { connection, authenticate } = require("./database/database");
-authenticate(connection); // efetivar a conexão
-// Inicio o banco de dados resetado
 const initiateDB = require("./database/initiateDB");
 initiateDB();
 
