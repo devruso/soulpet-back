@@ -1,20 +1,24 @@
 // Importações principais e variáveis de ambiente
 const cors = require("cors");
-require("dotenv").config();
+require("dotenv").config(); 
 const express = require("express");
 const morgan = require("morgan");
+const log = require("./logMongo");
 
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
 app.use(morgan("dev"));
+app.use(log);
 
 // Configurações de acesso
 app.use(cors({ origin: "http://localhost:3000" }));
 
+
+
 // Configuração do Banco de Dados
 const { connection, authenticate } = require("./database/database");
-// authenticate(connection); // efetivar a conexão
+authenticate(connection); // efetivar a conexão
 // Inicio o banco de dados resetado
 const initiateDB = require("./database/initiateDB");
 initiateDB();

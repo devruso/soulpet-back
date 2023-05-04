@@ -3,6 +3,7 @@ const Produto = require("../database/produto");
 const Cliente = require("../database/cliente");
 const Pedido = require("../database/pedido");
 
+
 const { Router } = require("express");
 
 const router = Router();
@@ -77,8 +78,8 @@ router.post("/pedidos", async (req, res) => {
 
             validPedidos.push(pedido);
         }
+            const result = await Pedido.bulkCreate(validPedidos);
 
-        const result = await Pedido.bulkCreate(validPedidos);
 
         res.json({ message: "Pedidos inseridos com sucesso.", result });
     } catch (err) {
@@ -97,6 +98,7 @@ router.put("/pedidos/:id", async (req, res) =>{
             const pedido = await Pedido.findByPk(id);
             if(pedido){
                 await pedido.update({codigo, quantidade});
+
                 res.json({message: "Pedido editado"});
             }else{
                 res.status(400).json({message:"Informações inválidas"});1
