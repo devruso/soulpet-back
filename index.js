@@ -4,11 +4,15 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const log = require("./logMongo");
+const mongoose = require('mongoose');
+
 
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
 app.use(morgan("dev"));
+// conexão com mongoose é feita pelo index
+mongoose.connect(process.env.MONGODB_URL);
 app.use(log);
 
 // Configurações de acesso

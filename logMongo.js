@@ -1,8 +1,6 @@
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URL);
-
 // Definição do schema para o registro de logs
 const logSchema = new mongoose.Schema({
     method: String,
